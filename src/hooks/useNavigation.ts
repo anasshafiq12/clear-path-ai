@@ -25,7 +25,7 @@ export function useNavigation() {
   const frameIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const gpsIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const healthIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
 
   const playAudioFeedback = useCallback((text: string, audioFile?: string) => {
     if (audioFile) {
@@ -157,7 +157,7 @@ export function useNavigation() {
 
   // Voice command
   const startListening = useCallback(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) {
       speakText('Voice recognition is not supported in this browser.');
       return;
